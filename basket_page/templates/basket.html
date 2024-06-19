@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %} Cart {% endblock %}
+
+{% block script %}
+    <script defer src= "{{ url_for('shop.static', filename = 'js/script.js') }}"></script>
+    <script defer src= "{{ url_for('basket.static', filename = 'js/basket.js') }}"></script>
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet"  href="{{ url_for('basket.static', filename = 'css/style.css') }}"> 
+{% endblock %}
+
+
+
+{% block content %}
+
+
+
+<div class="holder">
+    <div>
+        {% for product in products %}
+
+            <div id = "p_object">
+                <img style="align-self: flex-start" id = "p_image" src="{{ url_for('shop.static',filename='images/'+product.id|string+'.png')}}" alt="None">
+                <div class = "p_content" id = "{{product.discount}}">
+
+                    <h1 style="margin-top: 0px; font-family: sans-serif; width: 400px;text-overflow: ellipsis; overflow: hidden; width:310px; text-align: center;"> {{product.name}} </h1>
+                    <div id = "p_buttons">
+                        <button type="button" class = "cart_buttons_m" id = "{{product.id}}">-</button>
+                        <h1 class = "counter" id = "{{product.id}}">{{product.count}}</h1>
+                        <button type="button" class = "cart_buttons_p" id = "{{product.id}}">+</button>
+                    </div>
+                    <h1 style="font-family: sans-serif; width: 200px;" class = "price" id = "{{product.id}}">{{product.price}} грн</h1>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class = "placing">
+        <button type="button" id = "placing_button">ПЕРЕЙТИ ДО ОФОРМЛЕННЯ</button>
+        <div class = "info_placer">
+            <h4 id = "p_count"><span id = "p_countT">1</span> товари на суму</h4>
+            <h4 id = "p_priceT">1</h4>
+        </div>
+        <div class = "info_placer">
+            <h4 id = "p_discount">Знижка</h4>
+            <h4 id = "p_discountT">1</h4>
+        </div>
+        <div class = "info_placer">
+            <h3 id = "p_sum">Загальна сума</h3>
+            <h3 id = "p_sumT">1</h3>
+        </div>
+    </div>
+</div>
+
+{% endblock  %}
+

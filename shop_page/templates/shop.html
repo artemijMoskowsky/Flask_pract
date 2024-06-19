@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %} SHOP {% endblock  %}
+
+
+
+{% block style %}
+    <link rel="stylesheet"  href="{{ url_for('shop.static', filename = 'css/style.css') }}"> 
+{% endblock  %}
+
+{% block script %}
+    <script defer src= "{{ url_for('shop.static', filename = 'js/script.js') }}"></script>
+{% endblock %}
+
+
+{% block content %}
+
+    {% for product in products %}
+    
+        <div id = "p_object">
+            <img style="align-self: flex-start" id = "p_image" src="{{ url_for('shop.static',filename='images/'+product.id|string+'.png')}}" alt="None">
+            <div id = "p_content">
+                
+                <h1 style="margin-top: 0px; margin-bottom: 4px; font-family: sans-serif;"> {{product.name}} </h1>
+                <h2 style="font-family: sans-serif; margin-top: 4px; margin-bottom: 4px; text-decoration: line-through;"> {{product.price}} грн</h2>
+                <h2 style="font-family: sans-serif; margin-top: 4px; margin-bottom: 4px;"> Знижка {{product.discount}}%</h2>
+                <h1 style="font-family: sans-serif; margin-top: 4px;"> {{((product.price / 100) * (100 - product.discount)) | int}} грн</h1>
+
+                <button type="button" class = "product_button" id = "{{product.id}}">Купити</button>
+
+
+                <h3 style="font-family: sans-serif; margin-bottom: 0px;">Опис: </h3>                                 
+
+                <div id = "past_content">
+                    <div id = "p_capacity">
+                        
+                        <p class = "read-more" id = "{{product.id}}"> {{product.description}} </p>
+                        {% if product.description|length > 70 %}
+                            <div style="display:flex;align-items: center;justify-content: center;">
+                                <button type="button" class = "readmore" id = "{{product.id}}">Читати далі</button>
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% if product.count|int > 0 %}
+                    
+                        <p style="font-family: sans-serif;"><span class="mark">✔</span> Товар в наявності</p>
+                    {% else %}
+                        <p style="font-family: sans-serif;"><span class="mark-off"></span>Товару немає в наявності</p>
+                    {% endif %} 
+                </div>
+    
+          
+            </div>
+        </div>
+
+    {% endfor %}
+
+
+{% endblock  %}

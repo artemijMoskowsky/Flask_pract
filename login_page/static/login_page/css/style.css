@@ -1,0 +1,97 @@
+#log_title {
+    font-family: sans-serif;
+    font-size: 25px;
+    color: black;
+    text-decoration: underline;
+    position: absolute;
+    right: 0.8vw;
+    top: -280px;
+
+}
+
+#home_placer {
+    position: absolute;
+    right: 0px;
+}
+
+
+#log_placer {
+    border: 3px solid black;
+    border-radius: 50px;
+    display: flex;
+    margin: 35vw;
+    margin-top: 250px;
+    margin-bottom: 0vh;
+    flex-direction: column;
+    font-family: sans-serif;
+    width: 600px;
+    
+}
+#log_content {
+    display: flex;
+    flex-direction: column;
+}
+
+.input_holder {
+    font-size: 25px;
+    margin-left: 3vw;
+    margin-top: 5vh;
+    margin-bottom: 0vw;
+}
+
+.log_input {
+    height: 6vh;
+    border: 2px solid black;
+    border-radius: 10px;
+    margin: 3vw;
+    margin-top: 0vh;
+    margin-bottom: 0vw;
+    font-size: 25px;
+}
+.log_submit {
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: white;
+    height: 6vh;
+    font-size: 24px;
+    margin: 8vw;
+    margin-top: 3vh;
+    margin-bottom: 1vw;
+}
+
+.log_submit:hover {
+    cursor: pointer;
+}
+
+#div0 {
+    border: 3px solid black;
+    border-radius: 50px;
+    color: black;
+    font-family: sans-serif;
+    position: absolute;
+    background-color: white;
+    top: 25vh;
+    left: 25vw; 
+    width: 50vw;
+    height: 50vh;
+}
+
+#div0:checked ~ .log_submit:active {
+    left: 25vw; 
+}
+
+#div1 {
+    position: absolute;
+    right: 0.8vw;
+    bottom: 4.6vh;
+}
+
+#hh1{
+    margin-top: 25vh;
+}
+
+#to_login{
+    color: black;
+
+}
+

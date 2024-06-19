@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}  Login  {% endblock  %}
+
+{% block style %}
+    <link rel="stylesheet"  href="{{ url_for('login.static', filename = 'css/style.css') }}"> 
+{% endblock  %}
+
+
+{% block content %}
+
+    <div id="body-div">
+
+        <div id="home_placer">
+
+            <p id="log_title">AUTHORISATION</p>
+
+        </div>
+
+        <div id="log_placer">
+
+            
+
+            <form method = "post" id = "log_content">
+
+                <p class = "input_holder">Login or Email</p>
+
+                <input class = "log_input" type="text" name="name" placeholder="">
+
+                <p class = "input_holder">Password</p>
+
+                <input class = "log_input" type="text" name="password" placeholder="">
+                
+                <button class="log_submit" type="submit">SEND</button>
+            </form>
+        
+        </div>
+    
+    </div>
+
+    {% if not confirmed %}
+
+       <style>
+        
+            #body-div{
+                opacity: 0.5;
+            }
+        
+        </style>
+        
+        <div id="div0">
+            <h1 id="hh1" align = "center">YOU ARE NOT REGISTERED</h1>
+
+            <div style="display: flex;" id="div1">
+                <p id = "to_login" style="margin: 0;">→</p>
+                <a id = "to_login" href="/registration">REGISTRATION</a>           
+            </div>
+        </div>
+
+     
+    {% endif %}
+
+{% endblock  %}

@@ -1,0 +1,18 @@
+body {
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    
+}
+.red_shadow {
+    position: fixed;
+    border-radius: 50%;
+}
+path {
+    transition: all 0.3s ease 0s;
+}
+#home_page{
+    margin-top: 35vh;
+    font-family: sans-serif;
+    font-size: 100px;
+    font-weight:100;
+}

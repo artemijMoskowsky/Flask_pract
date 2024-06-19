@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <title>{% block title %}  {% endblock  %}</title>
+
+        <meta charset="UTF-8">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="stylesheet"  href="{{ url_for('static', filename = 'css/style.css') }}">
+        {% block style %}
+        
+        {% endblock %}
+
+        {% block script %}
+
+        {% endblock %}
+        
+        
+    </head>
+
+    <body>
+
+        <div id = "header">
+            
+            
+            <div id = "buttons">
+                {% if link != "None" %}
+                    <style>
+                        #{{link}}{
+                            font-weight: bold;
+                            text-decoration: underline;
+                        }
+                    </style>
+                    <!--{% if link == "home" %}
+                    {% endif %}!-->
+                    {% if user_name != "" %}
+                        <button type="submit" class = "nav-button"><a id = "home" class = "button-a" href = "/">HOME</a></button>
+                        <button type="submit" class = "nav-button"><a id = "shop" class = "button-a" href = "/shop">SHOP</a></button>
+                        <div class = "basket_"><button type="submit" class = "nav-button"><a id = "basket" class = "button-a" href = "/basket">CART</a></button><p id="basket-count"></p></div>
+                        <button type="submit" class = "nav-button"><a id = "contacts" class = "button-a" href = "/contacts">CONTACTS</a></button>
+                        {% if is_admin %}
+                            <button type="submit" class = "nav-button"><a id = "admin" class = "button-a" href = "/admin">ADMIN</a></button>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% if user_name == "" %}
+                <div id = "links" style="margin-top: 28px;">
+                    <a class = "autoreg_link" href = "/registration" >REGISTRATION</a>
+                    <a class = "autoreg_link" href = "/login" >AUTHORISATION</a>
+                </div>
+            {% else %}
+                <div id = "links" style="margin-top: 18px;">
+                    <h1 style="margin-top:0.5vh; text-transform: uppercase; font-family: sans-serif;">{{ user_name }}</h1>
+                </div>
+            {% endif %}
+
+            
+        </div>
+
+        {% block content %}
+        
+
+
+        {% endblock  %}
+
+    </body>
+
+</html>

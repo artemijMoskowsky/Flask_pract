@@ -1,0 +1,296 @@
+body{
+    background-color: rgb(255, 255, 255);
+}
+/* 
+#p_content{
+    
+} */
+
+.product_button {
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: #EFCB4A;
+    font-size: 23px;
+    font-family: sans-serif;
+    font-weight: bold;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.product_button:hover{
+    cursor: pointer;
+    background-color: #dbb93f;
+}
+
+/* .file-input-container{
+    overflow: hidden;
+    position: relative;
+}
+
+.file-input-label{
+    background: white;
+    padding: 8px 15px;
+    cursor: pointer;
+    border: 1px solid black; 
+    border-radius: 5px;
+}
+
+.file-input{
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+} */
+
+
+.p_object {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin: 100px; */
+    margin-bottom: 25px;
+    margin-top: 25px;
+
+}
+
+#p_content{
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: 15px;
+    margin-right: 15px;
+    /* border: 0px solid black; */
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    width:850px;
+}
+
+#p_image {
+    width: 161px;
+    height: 216px;
+}
+
+#past_content{
+
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    /* height: 40px; */
+}
+
+.read-more{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width:580px;
+    font-family: sans-serif;
+}
+
+.mark {
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: #EFCB4A ;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 7px;
+    padding-right: 7px;
+    /* height: 30px; */
+}
+
+.mark-off{
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: white ;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 13px;
+    padding-right: 13px;
+}
+
+.readmore {
+    color: rgb(85, 85, 85);
+    text-align: center;
+    border: 0px solid white;
+    background-color: white;
+}
+
+.readmore:hover{
+    color: black;
+}
+
+.change{
+    background-color: white;
+    border: 0px;
+}
+
+.add-input{
+    width: 450px;
+    height: 64px;
+    border-radius: 15px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-left: 100px;
+    font-size: 35px;
+}
+
+.add-text{
+    width: 450px;
+    height: 27px;
+    font-size: 27px;
+    margin-top: 5px;
+    margin-bottom: 2px;
+    margin-left: 100px;
+}
+
+.add-product{
+    position: fixed;
+    left: 125px;
+    top: 50px;
+    width: 650px;
+    height: 800px;
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    flex-direction: column;
+    margin: 525px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    border: black solid 2px;
+    border-radius: 15px;
+    background-color: white;
+    z-index: 5;
+}
+
+.add-button{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    border: 0px;
+    left: 66vw;
+    cursor: pointer;
+}
+
+.edit{
+    display: flex;
+}
+
+.window{
+    position: fixed;
+    width: 460px;
+    height: 20vh;
+    left: 35vw;
+    top: 40vh;
+    background-color: white;
+    border: 3px solid black;
+    padding: 25px;
+    padding-top: 55px;
+    padding-bottom: 45px;
+    border-radius: 25px;
+}
+
+.window_text_div{
+    flex-direction: column;
+    
+}
+
+.window_image_div{
+    flex-direction: column;
+    align-items: center;
+}
+
+.w_input{
+    margin: 55px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+/* .w_image_input{
+    border: 3px solid black;
+    border-radius: 10px;
+    width: 444px;
+    height: 75px;
+    font-size: 25px;
+} */
+
+.w_image_input{
+    border: 3px solid black;
+    border-radius: 10px;
+    width: 444px;
+    height: 75px;
+    font-size: 25px;
+}
+
+/* .w_image_input::before{
+    content: 'SELECT A FILE';
+    display: inline-block;
+    
+} */
+
+.w_image_input::file-selector-button{
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: #D1D8DB;
+    margin:10px;
+    margin-right:2px;
+    height: 55px;
+    width: 241px;
+    font-weight: bold;
+}
+
+.add-image{
+    border: 3px solid black;
+    border-radius: 10px;
+    width: 450px;
+    height: 55px;
+    font-size: 20px;
+    margin-left: 100px;
+}
+
+.add-image::file-selector-button{
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: #D1D8DB;
+    margin:6px;
+    margin-right:2px;
+    height: 45px;
+    width: 246px;
+    font-weight: bold;
+}
+
+.w_text1{
+    margin-right: 70px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 350px;
+}
+
+.w_text{
+    margin: 55px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 250px;
+}
+
+.w_button{
+    margin: 190px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-family: sans-serif;
+    font-size: 20px;
+    border: 0px;
+    text-decoration: underline;
+    background-color: white;
+}
+
+.pop-up-window {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.5);
+}

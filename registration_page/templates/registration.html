@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+
+
+{% block title %} Registration {% endblock  %} 
+
+{% block style %}
+    <link rel="stylesheet"  href="{{ url_for('reg_app.static', filename = 'css/style.css') }}"> 
+{% endblock  %}
+
+
+
+
+{% block content %}
+
+    <div id="body-div">
+        <div id="home_placer">
+            <p id = "reg_title">REGISTRATION</p>
+        </div>
+        <div id="reg_placer">
+            
+
+            <form method = "post" id = "reg_content">
+                <p class = "input_holder">Login</p>
+                <input class = "reg_input" type="text" name="name" placeholder="">
+                <p class = "input_holder">Email</p>
+                <input class = "reg_input" type="text" name="email" placeholder="">
+                <p class = "input_holder">Password</p>
+                <input class = "reg_input" type="text" name="password" placeholder="">
+                <p class = "input_holder">Password confirmation</p>
+                <input class = "reg_input" type="text" name="password_confirm" placeholder="">
+                <button class="reg_submit" type="submit">SEND</button>
+            </form>
+        </div>
+    </div>
+    {% if confirmed %}
+
+       <style>
+        
+            #body-div{
+                opacity: 0.5;
+            }
+        
+        </style>
+        
+        <div id="div0">
+            <h1 id="hh1" align = "center">CONFIRMED</h1>
+
+            <div style="display: flex;" id="div1">
+                <p id = "to_login" style="margin: 0;">→</p>
+                <a id = "to_login" href="/login">AUTHORISATION</a>           
+            </div>
+        </div>
+
+     
+    {% endif %}
+
+
+{% endblock  %}

@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('admin.static',filename='css/style.css')}}">
+{% endblock %}
+
+{% block script %}
+<script defer src = "{{url_for('admin.static', filename = 'js/script.js')}}"></script>
+{% endblock %}
+{% block content %}
+    <div style = "display: none; background-color: rgba(255,255,255,0.5); z-index: 10; position:fixed; width: 100vw; height: 100vh; top: 0px;">
+    <form method ="post" enctype="multipart/form-data" class="add-product">
+        <h1 align="center" style = "margin-bottom: 2px;">Новий продукт</h1>
+        <p class = "add-text">Зображення</p>
+        <input class = "add-image" type="file" name="image" accept = "image/*">
+        <p class = "add-text">Назва</p>
+        <input class = "add-input" type="text" name="name" value="">
+        <p class = "add-text">Опис</p>
+        <textarea class = "add-input" name = "description" ></textarea>
+        <p class = "add-text">Ціна</p>
+        <input class = "add-input" type="number" name="price" value="">
+        <p class = "add-text">Знижка</p>
+        <input class = "add-input" type="number" name="discount" value="">
+        <p class = "add-text">Кількість</p>
+        <input class = "add-input" type="number" name="count" value="">
+        
+        
+        <button class = "w_button" type="submit" name = "id" value = "add" >Додати</button>
+    </form>
+    </div>
+    <button type="button" class = "add-button">
+        <h2 style = "margin: 13px;">Додати продукт</h2>
+        <p style = "background-color: #D1D8DB; border: 2px solid black; border-radius: 7px; font-size: 40px; padding-left: 10px; padding-right: 10px; margin: 0px;">+</p>
+    </button>
+    {% for product in products %}
+            <form method="post" enctype="multipart/form-data" class = "p_object" id = "{{product.id}}">
+                
+                <div style="align-self: flex-start; align-items: center" class = "edit">
+                    <img class = "p_image" id = "p_image" src="{{ url_for('shop.static',filename='images/'+product.id|string+'.png')}}" alt="None">
+                    <button type="button" class = "change" id = "{{product.id}}" value = "image">
+                        <img style = "width: 25px; height: 25px; position: relative; left: 0px; top: 0px;" src = "{{ url_for('admin.static',filename='image/edit.jpg') }}" alt="None">
+                    </button>
+
+                    <!-- <div>
+                        <img style = "width: 25px; height: 25px; position: relative; left: 0px; top: 0px;" src = "{{ url_for('admin.static',filename='image/edit.jpg') }}" alt="None">
+                        <input type = "file" name= "image" accept = "image/*" style = "opacity: 0; width: 25px; height: 25px; position: relative; left: -29px; top: -10px;">
+                    </div> -->
+                </div>
+                <div id = "p_content">
+                    <!--<input name="id" value="{{product.id}}" style="display: none;">         style = "opacity: 0; width: 25px; height: 25px; position: relative; left: -29px; top: -10px;"           !-->
+                    
+                    <div class = "edit">
+                        <h1 class = "p_name" id = "p_name" style="margin-top: 0px; margin-bottom: 4px; font-family: sans-serif;"> {{product.name}} </h1>
+                        <button type="button" class = "change" id = "{{product.id}}" value = "name">
+                            <img style = "width: 25px; height: 25px; position: relative; left: 0px; top: 0px;" src = "{{ url_for('admin.static',filename='image/edit.jpg') }}" alt="None">
+                        </button>
+                    </div>
+
+                    <div class = "edit">
+                        <h2 class = "p_price" id = "p_price" style="font-family: sans-serif; margin-top: 4px; margin-bottom: 4px; text-decoration: line-through;">{{product.price}} грн</h2>
+                        <button type="button" class = "change" id = "{{product.id}}" value = "price">
+                            <img style = "width: 25px; height: 25px; position: relative; left: 0px; top: 0px;" src = "{{ url_for('admin.static',filename='image/edit.jpg') }}" alt="None">
+                        </button>
+                    </div>
+
+
+
+                    <div class = "edit">
+                        <h2 class = "p_discount" id = "p_discount" style="font-family: sans-serif; margin-top: 4px; margin-bottom: 4px;">Знижка {{product.discount}}%</h2>
+                        <button type="button" class = "change" id = "{{product.id}}" value = "discount">
+                            <img style = "width: 25px; height: 25px; position: relative; left: 0px; top: 0px;" src = "{{ url_for('admin.static',filename='image/edit.jpg') }}" alt="None">
+                        </button>
+                    </div>
+
+                    <h1 style="font-family: sans-serif; margin-top: 4px;"> {{((product.price|int / 100) * (100 - product.discount|int)) | int}} грн</h1>
+
+                    <button type="button" class = "product_button" id = "{{product.id}}">Купити</button>
+
+
+                    <h3 style="font-family: sans-serif; margin-bottom: 0px;">Опис: </h3>                             
+
+
+                    <div id = "past_content">
+                        <div id = "p_capacity">
+                        
+                            <div class = "edit">
+                                <p class = "read-more p_description" id = "{{product.id}}"> {{product.description}} </p>
+                                <button type="button" class = "change" id = "{{product.id}}" value = "description">
+                                    <img style = "width: 25px; height: 25px; position: relative; left: 0px; top: 0px;" src = "{{ url_for('admin.static',filename='image/edit.jpg') }}" alt="None">
+                                </button>
+                            </div>
+                            
+                            {% if product.description|length > 70 %}
+                                <div style="display:flex;align-items: center;justify-content: center;">
+                                    <button type="button" class = "readmore" id = "{{product.id}}">Читати далі</button>
+                                </div>
+                            {% endif %}
+                        </div>
+                        {% if product.count|int > 0 %}
+                     
+                            <p style="font-family: sans-serif;"><span class="mark">✔</span> Товар в наявності</p>
+                        {% else %}
+                            <p style="font-family: sans-serif;"><span class="mark-off"></span>Товару немає в наявності</p>
+                        {% endif %} 
+                    </div>
+    
+                    
+                    
+                    <button name="id" value="del-{{product.id}}" type="submit">Delete</button>
+                </div>
+            </form>
+
+    {% endfor %}
+    <form method = "post" class = "pop-up-window" enctype = "multipart/form-data" style = "display: none; z-index: 1;" >
+        <div class = "window">
+            
+            <div class = "window_image_div" style = "display: none; z-index: 2;">
+                <h2 class = "w_text1">Змінити зображення</h2>
+                <img class = "w_image" src = "" alt = "" style = "width: 200px; height: 250px; object-fit: contain; display: none;">
+                <input class = "w_image_input" id = "file-upload" type="file" name="image" accept = "image/*">
+                
+            </div>
+        
+            <div class = "window_text_div" style = "display: none; z-index: 2;">
+                <h2 class = "w_text">Змінити текст</h2>
+                <input class = "w_input" type="text" name="" value="" style = "width: 350px; height: 35px; font-size: 25px">
+            <!--<h2>Ціна</h2>
+            <input class = "w_price" type="number" name="price" value="" style = "width: 350px; height: 35px; font-size: 25px">
+            <h2>Знижка</h2>
+            <input class = "w_discount" type="number" name="discount" value="" style = "width: 350px; height: 35px; font-size: 25px">
+            <h2>Опис</h2>
+            <textarea style = "min-width: 350px; max-width: 450px; min-height: 150px; max-height: 200px; font-size: 15px" class = "w_description" name = "description" ></textarea>-->
+                
+            </div>
+            <button class = "w_button" name="id" value="" type="submit">SEND</button>
+        </div>
+   
+    </form>
+    
+{% endblock %}
