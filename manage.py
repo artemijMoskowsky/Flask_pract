@@ -1,7 +1,7 @@
 # 
 import shop_project
 import bot_app
-import threading
+# import threading
 # 
 # if __name__ == "__main__":
 #     # 
