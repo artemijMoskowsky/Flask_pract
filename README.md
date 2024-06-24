@@ -1,4 +1,3 @@
-```markdown
 # Проект "FlaskWorldITDiplom"
 
 ## Перечень участников
