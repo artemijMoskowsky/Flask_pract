@@ -82,7 +82,7 @@ class User(data_base.Model, UserMixin):
     def __repr__(self):
         return f"{self.id}, {self.name}"
 
-```markdown
+```
 ### Модель 2: Продукт
 Опис моделі продукту, її поля та методи.
 
@@ -101,3 +101,4 @@ class Product(data_base.Model):
     count = data_base.Column(data_base.Integer, nullable = False)
     # Знижка товару
     discount = data_base.Column(data_base.Integer, nullable = False)
+```
