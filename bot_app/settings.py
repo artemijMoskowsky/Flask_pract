@@ -139,7 +139,7 @@ def callback(cb: telebot.types.CallbackQuery):
         list_product = data_update("SELECT * FROM product")
         for product in list_product:
             inline_keyboard_3.keyboard[0][0].callback_data = f"delete_product {product[0]}"
-            inline_keyboard_3.keyboard[0][1].callback_data = f"edit_product {product[0]} {product[1]} {product[2]} {product[3]} {product[4]} {product[5]}"
+            # inline_keyboard_3.keyboard[0][1].callback_data = f"edit_product {product[0]} {product[1]} {product[2]} {product[3]} {product[4]} {product[5]}"
             bot.send_message(chat_id = cb.message.chat.id, message_thread_id = chats["Products"] ,text = f"ID: {product[0]}\nName: {product[1]}\nPrice: {product[2]}\nDiscription: {product[3]}\nCount: {product[4]}\nDiscount: {product[5]}", reply_markup = inline_keyboard_3)
     
     elif "delete_product" in cb.data:
