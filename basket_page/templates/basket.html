@@ -15,7 +15,34 @@
 
 {% block content %}
 
+{% if is_waiting == true %}
+<h2 align = "center" class = "waiting_title">Ваші дані у обробці<br>
+консультант зв’яжеться з вами для підтвердження замовлення</h2>
+{% endif %}
 
+<form class = "placing2" method = "post">
+    <h2 class = "placing2-title">ОФОРМЛЕННЯ ЗАМОВЛЕННЯ</h2>
+
+    <p class = "placing2-text">Ім'я</p>
+    <input type="text" name="name" value="" class = "placing2-input">
+    
+    <p class = "placing2-text">Прізвище</p>
+    <input type="text" name="surname" value="" class = "placing2-input">
+    
+    <p class = "placing2-text">Номер телефону</p>
+    <input type="text" name="phone" value="" class = "placing2-input">
+    
+    <p class = "placing2-text">Пошта</p>
+    <input type="text" name="email" value="" class = "placing2-input">
+    
+    <p class = "placing2-text">Місто</p>
+    <input type="text" name="city" value="" class = "placing2-input">
+    
+    <p class = "placing2-text">Побажання</p>
+    <input type="text" name="wishes" value="" class = "placing2-input">
+
+    <button type="submit" class = "send_button">SEND</button>
+</form>
 
 <div class="holder">
     <div>
@@ -27,15 +54,20 @@
 
                     <h1 style="margin-top: 0px; font-family: sans-serif; width: 400px;text-overflow: ellipsis; overflow: hidden; width:310px; text-align: center;"> {{product.name}} </h1>
                     <div id = "p_buttons">
+                        {% if is_waiting == false %}
                         <button type="button" class = "cart_buttons_m" id = "{{product.id}}">-</button>
+                        {% endif %}
                         <h1 class = "counter" id = "{{product.id}}">{{product.count}}</h1>
+                        {% if is_waiting == false %}
                         <button type="button" class = "cart_buttons_p" id = "{{product.id}}">+</button>
+                        {% endif %}
                     </div>
                     <h1 style="font-family: sans-serif; width: 200px;" class = "price" id = "{{product.id}}">{{product.price}} грн</h1>
                 </div>
             </div>
         {% endfor %}
     </div>
+    {% if is_waiting == false %}
     <div class = "placing">
         <button type="button" id = "placing_button">ПЕРЕЙТИ ДО ОФОРМЛЕННЯ</button>
         <div class = "info_placer">
@@ -51,7 +83,30 @@
             <h3 id = "p_sumT">1</h3>
         </div>
     </div>
+    {% endif %}
 </div>
+
+{% if is_waiting == true %}
+<div style = "display: flex; justify-content: center; align-items: center;">
+    <h4 style = "display: none;" id = "p_priceT">1</h4>
+    <h4 style = "display: none;" id = "p_discountT">1</h4>
+    <h1 style = "display: flex;" class = "waiting_sum" id = "p_sum">Загальна вартість замовлення: <h1 id = "p_sumT">1</h1></h1>
+</div>
+
+{% if is_waiting == true %}
+
+<style>
+.holder{
+    align-items: center;
+}
+#p_object{
+    margin-left: 150px;
+}
+</style>
+
+{% endif %}
+<!--<button class = "waiting_button">відмінити замовлення</button>!-->
+{% endif %}
 
 {% endblock  %}
 

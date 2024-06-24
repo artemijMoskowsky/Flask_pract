@@ -69,7 +69,15 @@ def show_admin():
             data_base.session.commit()
 
         else:
+            
+            with open(os.path.abspath(__file__ + "/../../shop_project/loger.txt"),"r") as file:
+                last_id = int(file.read())
+            with open(os.path.abspath(__file__ + "/../../shop_project/loger.txt"),"w") as file:
+                file.write('')
+            with open(os.path.abspath(__file__ + "/../../shop_project/loger.txt"),"w") as file:
+                file.write(str(last_id + 1))
             new_product = Product(
+                id = last_id + 1,
                 name =  flask.request.form["name"],
                 price = flask.request.form["price"],
                 count = flask.request.form["count"],
@@ -83,7 +91,8 @@ def show_admin():
             else:
                 image = flask.request.files["image"]
                 image.save(os.path.abspath(__file__ + f"/../../shop_page/static/shop_page/images/1.png"))
-
+            #new_product.id = last_id + 1
+            print(new_product.id)
             data_base.session.add(new_product)
         data_base.session.commit()
     #if user_type == "ADMIN":

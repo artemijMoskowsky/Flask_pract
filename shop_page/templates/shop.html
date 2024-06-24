@@ -16,6 +16,9 @@
 {% block content %}
 
     {% for product in products %}
+        <div class = "dataReader" style = "display: none;" data-products_ids = '{{ list_products_ids }}'>
+            
+        </div>
     
         <div id = "p_object">
             <img style="align-self: flex-start" id = "p_image" src="{{ url_for('shop.static',filename='images/'+product.id|string+'.png')}}" alt="None">
@@ -46,9 +49,10 @@
                         <p style="font-family: sans-serif;"><span class="mark">✔</span> Товар в наявності</p>
                     {% else %}
                         <p style="font-family: sans-serif;"><span class="mark-off"></span>Товару немає в наявності</p>
-                    {% endif %} 
+                    {% endif %}
+                    
                 </div>
-    
+                
           
             </div>
         </div>

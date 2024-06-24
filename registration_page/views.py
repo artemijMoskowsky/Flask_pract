@@ -55,7 +55,7 @@ def show_regestration():
                 
                     confirmed = True
 
-                    new_user = User(name = name, email = email, password = password, is_admin = False)
+                    new_user = User(name = name, email = email, password = password, is_admin = False, is_waiting = False)
     
                     data_base.session.add(new_user)
     

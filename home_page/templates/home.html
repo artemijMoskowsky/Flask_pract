@@ -11,6 +11,8 @@
 {% endblock %}
 
 {% block content %}
+    <div class = "dataReader" style = "display: none;" data-products_ids = '{{ list_products_ids }}'>
+    </div>
     <h1 id="home_page" align = "center">HOME PAGE</h1>
     <script src="{{ url_for('home.static', filename = 'js/home.js') }}"></script>
 {% endblock %}

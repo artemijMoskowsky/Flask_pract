@@ -17,6 +17,8 @@ class User(data_base.Model, UserMixin):
     email = data_base.Column(data_base.String(60), nullable = False)
     # 
     is_admin = data_base.Column(data_base.Boolean, nullable = False)
+    #
+    is_waiting = data_base.Column(data_base.Boolean, nullable = False)
 
     # 
     def __repr__(self):

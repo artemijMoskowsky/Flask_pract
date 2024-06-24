@@ -2,11 +2,36 @@ const list_button = document.querySelectorAll(".product_button");
 const basketCount = document.querySelector("#basket-count");
 const list_rbuttons = document.querySelectorAll(".readmore")
 const list_description = document.querySelectorAll(".read-more")
+const productList = document.querySelectorAll("#p_object")
+const dataReader = document.querySelector(".dataReader")
+
+console.log(document.body)
 
 function updateBasketCount() {
-    let count = document.cookie.split("=")[1].split(" ").length;
+    let cookies = document.cookie.split("=")[1].split(" ");
+    let count = 0
+    let validID = dataReader.getAttribute("data-products_ids").slice(1, -1).replace(/,/g, "").split(" ")
+    console.log(validID)
+
+
+    // for(let prod = 0; prod < productList.length; prod++){
+    //     let product = productList[prod]
+    //     let counter = product.getElementsByClassName("counter")[0]
+    //     count += parseInt(counter.textContent)
+    //     console.log(counter.textContent)
+    // }
+
+    for(let i = 0; i < cookies.length; i++){
+        if( validID.includes(cookies[i])){
+            count += 1
+        }
+    }
     basketCount.textContent = count
-    basketCount.style.display = "flex"
+    if (count > 0){
+        basketCount.style.display = "flex"
+    } else {
+        basketCount.style.display = "none"
+    }
 
 }
 
@@ -15,6 +40,7 @@ for (let i = 0; i < list_button.length; i++){
     button.addEventListener("click", function() {
         if (document.cookie != ""){
             let products = document.cookie.split("=")[1]
+            
             // if (!products.includes(button.id)){
             document.cookie = `products = ${products} ${button.id}; Path = /`
             // }

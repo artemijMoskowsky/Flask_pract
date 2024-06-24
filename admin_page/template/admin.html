@@ -96,17 +96,18 @@
                                 </div>
                             {% endif %}
                         </div>
-                        {% if product.count|int > 0 %}
+                        <button style = "display: flex;border: 0px; background-color: white;" name="id" value="del-{{product.id}}" type="submit" ><img style = " margin-top: 7px; width: 25px; height: 28px;" src = "{{ url_for('admin.static', filename = 'image/pomoyka.jpg') }}" alt = "None"><h3>Видалити товар</h3></button>
+                        <!--{% if product.count|int > 0 %}
                      
                             <p style="font-family: sans-serif;"><span class="mark">✔</span> Товар в наявності</p>
                         {% else %}
                             <p style="font-family: sans-serif;"><span class="mark-off"></span>Товару немає в наявності</p>
-                        {% endif %} 
+                        {% endif %} !-->
                     </div>
     
                     
                     
-                    <button name="id" value="del-{{product.id}}" type="submit">Delete</button>
+                    
                 </div>
             </form>
 
