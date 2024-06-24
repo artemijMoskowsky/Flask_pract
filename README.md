@@ -10,6 +10,10 @@
 - [Лесковець Кирило]()
 - [Мартиненко Святослав](https://github.com/SviatMartynenko)
 
+## Структура проекту:
+![image](https://github.com/artemijMoskowsky/Flask_pract/assets/144718032/03f00dc8-2bf2-4409-b7af-a06680a4bfbc)
+
+
 ## Технології та мови:
 1. Python/Flask - Використовувался для розробки серверної частини проекту.
 2. FlaskMigrate/FlaskSQLAlchemy - Використовувался для роботи з базою даних через Python/Flask.
