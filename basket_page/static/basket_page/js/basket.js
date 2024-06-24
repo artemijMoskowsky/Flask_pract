@@ -20,14 +20,12 @@ if (placingButton != null){
 
 
 function updateBasketCount() {
-    // let count = document.cookie.split("=")[1].split(" ").length;
     let count = 0
 
     for(let prod = 0; prod < productList2.length; prod++){
         let product = productList2[prod]
         let counter = product.getElementsByClassName("counter")[0]
         count += parseInt(counter.textContent)
-        // console.log(counter.textContent)
     }
     basketCount2.textContent = count
     if (count > 0){
@@ -39,14 +37,6 @@ function updateBasketCount() {
 
 }
 updateBasketCount()
-
-// for(let id = 0; id < counters.length; id++){
-//     let counter = counters[id]
-//     let value = localStorage.getItem(plus_buttons[id].id)
-//     if (value != null){
-//         counter.textContent = value
-//     }
-// }
 
 if (placingButton != null){
 for(let id = 0; id < plus_buttons.length; id++){
@@ -68,7 +58,6 @@ for(let id = 0; id < minus_buttons.length; id++ ){
     let counter = counters[id]
     button.addEventListener("click", function(){
         if(counter.textContent != "1"){
-            //console.log(counter.textContent)
             counter.textContent = parseInt(counter.textContent) - 1
             let cookie = document.cookie.split("=")[1].split(" ")
             for (let i = 0; i < cookie.length; i ++){

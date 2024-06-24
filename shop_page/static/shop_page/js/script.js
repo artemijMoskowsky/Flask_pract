@@ -5,21 +5,11 @@ const list_description = document.querySelectorAll(".read-more")
 const productList = document.querySelectorAll("#p_object")
 const dataReader = document.querySelector(".dataReader")
 
-console.log(document.body)
-
 function updateBasketCount() {
     let cookies = document.cookie.split("=")[1].split(" ");
     let count = 0
     let validID = dataReader.getAttribute("data-products_ids").slice(1, -1).replace(/,/g, "").split(" ")
-    console.log(validID)
 
-
-    // for(let prod = 0; prod < productList.length; prod++){
-    //     let product = productList[prod]
-    //     let counter = product.getElementsByClassName("counter")[0]
-    //     count += parseInt(counter.textContent)
-    //     console.log(counter.textContent)
-    // }
 
     for(let i = 0; i < cookies.length; i++){
         if( validID.includes(cookies[i])){
@@ -40,10 +30,7 @@ for (let i = 0; i < list_button.length; i++){
     button.addEventListener("click", function() {
         if (document.cookie != ""){
             let products = document.cookie.split("=")[1]
-            
-            // if (!products.includes(button.id)){
             document.cookie = `products = ${products} ${button.id}; Path = /`
-            // }
         }
         else{
             document.cookie = `products = ${button.id}; Path = /`
@@ -79,9 +66,6 @@ for (let i = 0; i < list_rbuttons.length; i++) {
                 }
             }  
         }
-        // let text = document.querySelector(`.read-more#${button.id}`)//.querySelector(`#${button.id}`)
-        // console.log(text)
-        
     })
 }
 document.body.style.overflowX = "hidden";
