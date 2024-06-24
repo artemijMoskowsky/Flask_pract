@@ -42,7 +42,7 @@
 Цей фал відповідає за збереження останнього id що існувало у базі даних, це потрібно для того щоб id котре було видалено ніколи не з'явилось знову. Завдяки цьому коректно працює додаток basket_page, тому що старі id перестають працювати, та при видаленні товару зайві id з cookies стають не активними.
 
 ### Додаток bot_app:
-Додаток відповідає за роботу бота який працює на адмін сервері у телеграмі. Бота має змогу:
+Додаток відповідає за роботу бота який працює на адмін сервері у телеграмі. Бот має змогу:
 - Виводити усіх користувачів.
 - Видаляти користувача.
 - Забирати права адміну.
@@ -58,33 +58,18 @@
 3. Установите зависимости: `pip install -r requirements.txt`
 4. Запустите приложение: `flask run`
 
-#### Примеры использования
-- Создание поста: Перейдите на `/create_post` и заполните форму.
-- Просмотр постов: Перейдите на `/posts`.
+## Опис Flask моделей
 
-### Приложение 2: Книга рецептов
-Приложение для хранения и поиска кулинарных рецептов.
-
-#### Установка и запуск
-1. Клонируйте репозиторий: `git clone https://github.com/yourrepo`
-2. Перейдите в директорию проекта: `cd yourrepo`
-3. Установите зависимости: `pip install -r requirements.txt`
-4. Запустите приложение: `flask run`
-
-#### Примеры использования
-- Добавление рецепта: Перейдите на `/add_recipe` и заполните форму.
-- Поиск рецептов: Перейдите на `/search`.
-
-## Описание Flask моделей
-
-### Модель 1: Пользователь
-Описание модели пользователя, её поля и методы.
+### Модель 1: Користувач
+Опис моделі користувача, її поля та методи.
 
 ```python
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-
+class User(db.Model, flask_login.UserMixin):
+    id = data_base.Column(data_base.Integer, primary_key = True)
+    name = data_base.Column(data_base.String(255), nullable = False)
+    password = data_base.Column(data_base.String(60), nullable = False)
+    email = data_base.Column(data_base.String(60), nullable = False)
+    is_admin = data_base.Column(data_base.Boolean, nullable = False)
+    is_waiting = data_base.Column(data_base.Boolean, nullable = False)
     def __repr__(self):
-        return f'<User {self.username}>'
+        return f"{self.id}, {self.name}"
