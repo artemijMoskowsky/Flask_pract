@@ -5,7 +5,7 @@
 ## Перелік учасників
 
 - [Московський Артемій]()
-- [Науменко Нікіта]()
+- [Науменко Нікіта](https://github.com/Naumenko0Nikita)
 - [Олефіренко Глеб](https://github.com/GlebOlefirenko)
 - [Лесковець Кирило]()
 - [Мартиненко Святослав](https://github.com/SviatMartynenko)
