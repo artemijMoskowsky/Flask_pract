@@ -65,12 +65,6 @@
 - Відхилити замовлення.
 - Прийняти замовлення.
 
-#### Установка и запуск
-1. Клонируйте репозиторий: `git clone https://github.com/yourrepo`
-2. Перейдите в директорию проекта: `cd yourrepo`
-3. Установите зависимости: `pip install -r requirements.txt`
-4. Запустите приложение: `flask run`
-
 ## Опис Flask моделей
 
 ### Модель 1: Користувач
@@ -520,3 +514,8 @@ popUpWindow.getElementsByClassName("w_image_input")[0].addEventListener("change"
     fileReader.readAsDataURL(target.files[0]);
 })
 ```
+## Установка и запуск
+1. Клонируйте репозиторий: `git clone https://github.com/yourrepo`
+2. Перейдите в директорию проекта: `cd yourrepo`
+3. Установите зависимости: `pip install -r requirements.txt`
+4. Запустите приложение: `flask run`
