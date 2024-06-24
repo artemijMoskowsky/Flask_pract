@@ -82,6 +82,7 @@ class User(data_base.Model, UserMixin):
     def __repr__(self):
         return f"{self.id}, {self.name}"
 
+```markdown
 ### Модель 2: Продукт
 Опис моделі продукту, її поля та методи.
 
