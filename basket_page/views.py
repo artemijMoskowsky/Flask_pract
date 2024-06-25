@@ -1,11 +1,12 @@
 import flask
+import requests
 import flask_login
 from flask_mail import Message
 from shop_page.models import Product
 from registration_page.models import User
 from shop_project.mail_config import mail, ADMINISTRATION_ADRES, ADMINISTRATION_PASSWORD
-from bot_app import bot, chats, button_apl, button_de, inline_keyboard_cart
 from shop_project.settings import data_base
+import json
 # import smtplib
 # from email.mime.text import MIMEText
 
@@ -62,22 +63,27 @@ def show_basket():
             for product in products_list:
                 message_text +=f" *{product.name}\n"
 
-            inline_keyboard_cart.keyboard[0][0].callback_data = f"apply_order {flask_login.current_user.id} {email}"
-            inline_keyboard_cart.keyboard[0][1].callback_data = f"reject_order {flask_login.current_user.id}"
-            bot.send_message(chat_id = "-1002157660034", message_thread_id = chats["Cart"],  text = message_text, reply_markup = inline_keyboard_cart)
-            # server = smtplib.SMTP(
-            #     host = "smtp.gmail.com",
-            #     port = 587,
-            # )
-            # server.starttls()
-            # try:
-            #     server.login(ADMINISTRATION_ADRES, ADMINISTRATION_PASSWORD)
-            #     msg = MIMEText(message_text)
-            #     msg["Subject"] = "Flask_Diplom"
-            #     server.sendmail(from_addr = ADMINISTRATION_ADRES, to_addrs = USER_ADRESS, msg = msg.as_string())
-
-            # except Exception as _ex:
-            #     print(_ex)
+            # inline_keyboard_cart.keyboard[0][0].callback_data = f"apply_order {flask_login.current_user.id} {email}"
+            # inline_keyboard_cart.keyboard[0][1].callback_data = f"reject_order {flask_login.current_user.id}"
+            # bot.send_message(chat_id = "-1002157660034", message_thread_id = chats["Cart"],  text = message_text, reply_markup = inline_keyboard_cart)
+            keyboard = {
+                "inline_keyboard": [[
+                    {
+                    "text": 'Прийняти замовлення',
+                    "callback_data": f'apply_order {flask_login.current_user.id} {email}'
+                    },
+                    
+                    {
+                    "text": "Відхилити замовлення",
+                    "callback_data": f'reject_order {flask_login.current_user.id}'
+                    }
+                ]]
+            }
+            token = "7288836611:AAEqW2rsGrWsat1iiiXHpEXFGVyXQOfoz5w"
+            method = "SendMessage"
+            url = f"https://api.telegram.org/bot{token}/{method}"
+            data = {"chat_id": "-1002157660034","message_thread_id": "4", "text": message_text, "reply_markup": json.dumps(keyboard)}
+            requests.post(url = url, data = data)
             
             send_message = Message(
                 subject = "Замовлення",

@@ -170,3 +170,5 @@ def callback(cb: telebot.types.CallbackQuery):
             server.sendmail(from_addr = ADMINISTRATION_ADRES, to_addrs = email, msg = msg.as_string().encode("utf-8"))
         except Exception as _ex:
             print(_ex)
+
+bot.infinity_polling()

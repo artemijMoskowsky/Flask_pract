@@ -10,6 +10,7 @@ const span_count = document.querySelector("#p_countT")
 const basketCount2 = document.querySelector("#basket-count");
 const productList2 = document.querySelectorAll("#p_object")
 const placingButton = document.querySelector("#placing_button")
+const countReader = document.querySelectorAll(".count_reader")
 
 if (placingButton != null){
     placingButton.addEventListener("click", function(){
@@ -42,14 +43,19 @@ if (placingButton != null){
 for(let id = 0; id < plus_buttons.length; id++){
     let button = plus_buttons[id]
     let counter = counters[id]
+    let countr = countReader[id]
+
     button.addEventListener("click", function(){
-        counter.textContent = parseInt(counter.textContent) + 1
-        let cookie = document.cookie.split("=")[1]
-        document.cookie = `products = ${cookie} ${button.id}`
-        setPriceSum()
-        setDiscount()
-        setPrice()
-        updateBasketCount()
+        // if (parseInt(counter.textContent) < parseInt(countr.id)){
+            counter.textContent = parseInt(counter.textContent) + 1
+            let cookie = document.cookie.split("=")[1]
+            document.cookie = `products = ${cookie} ${button.id}`
+            setPriceSum()
+            setDiscount()
+            setPrice()
+            updateBasketCount()
+        // }
+
     })
 }
 

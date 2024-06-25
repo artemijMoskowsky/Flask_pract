@@ -62,6 +62,8 @@ def show_admin():
             #
             selected_product = Product.query.get(product_id)
             #
+            os.remove(os.path.abspath(__file__ + f"/../../shop_page/static/shop_page/images/{product_id}.png"))
+            
             data_base.session.delete(selected_product)
             #
             data_base.session.commit()

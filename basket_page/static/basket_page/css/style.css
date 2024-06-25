@@ -84,7 +84,7 @@
     position: fixed;
     width: 700px;
     height: 850px;
-    border: 2px solid black;
+    border: 5px solid black;
     border-radius: 25px;   
     flex-direction: column;
     left: 575px;
@@ -145,11 +145,11 @@
 }
 
 .waiting_button{
-    /* display: none; */
-    border: 1px;
+    border: 1px solid black;
     border-radius: 15px;
     background-color: #EFCB4A;
     font-family: sans-serif;
-    width: 256px;
-    height: 61px;
+    font-weight: bold;
+    width: 366px;
+    height: 73px;
 }

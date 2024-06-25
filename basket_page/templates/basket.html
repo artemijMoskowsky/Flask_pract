@@ -49,6 +49,9 @@
         {% for product in products %}
 
             <div id = "p_object">
+                <div class = "count_reader" id = "{{ product.count }}" style = "display: none;">
+                    
+                </div>
                 <img style="align-self: flex-start" id = "p_image" src="{{ url_for('shop.static',filename='images/'+product.id|string+'.png')}}" alt="None">
                 <div class = "p_content" id = "{{product.discount}}">
 
@@ -105,8 +108,9 @@
 </style>
 
 {% endif %}
-<!--<button class = "waiting_button">відмінити замовлення</button>!-->
+<div style = "display: flex; align-items: center; justify-content: center;">
+    <button class = "waiting_button">ВІДМІНИТИ ЗАМОВЛЕННЯ</button>
+</div>
 {% endif %}
 
 {% endblock  %}
-
