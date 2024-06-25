@@ -11,6 +11,7 @@ bot = telebot.TeleBot(token = "7288836611:AAEqW2rsGrWsat1iiiXHpEXFGVyXQOfoz5w")
 button_1 = telebot.types.InlineKeyboardButton(text = "GET USERS", callback_data = "get_users")
 button_2 = telebot.types.InlineKeyboardButton(text = "DELETE USER", callback_data = "delete_user")
 button_3 = telebot.types.InlineKeyboardButton(text = "REMOVE ADMIN", callback_data = "remove_admin")
+button_3_5 = telebot.types.InlineKeyboardButton(text = "ADD ADMIN", callback_data = "add_admin")
 button_4 = telebot.types.InlineKeyboardButton(text = "GET PRODUCTS", callback_data = "get_products")
 button_5 = telebot.types.InlineKeyboardButton(text = "DELETE PRODUCT", callback_data = "delete_product")
 button_6 = telebot.types.InlineKeyboardButton(text = "ADD PRODUCT", callback_data = "add_product") 
@@ -25,8 +26,9 @@ inline_keyboard_cart.add(button_apl, button_de)
 inline_keyboard_1 = telebot.types.InlineKeyboardMarkup()
 inline_keyboard_2 = telebot.types.InlineKeyboardMarkup()
 inline_keyboard_3 = telebot.types.InlineKeyboardMarkup()
+
 inline_keyboard_1.add(button_1, button_4, button_6)
-inline_keyboard_2.add(button_2, button_3)#, button_5, button_6
+inline_keyboard_2.add(button_2, button_3, button_3_5)#, button_5, button_6
 inline_keyboard_3.add(button_5)
 chats = {
     "General": "1",
@@ -117,6 +119,7 @@ def callback(cb: telebot.types.CallbackQuery):
         for user in users_list:
             inline_keyboard_2.keyboard[0][0].callback_data = f"delete_user {user[0]}"
             inline_keyboard_2.keyboard[0][1].callback_data = f"remove_admin {user[0]} {user[1]} {user[2]}"
+            inline_keyboard_2.keyboard[0][2].callback_data = f"add_admin {user[0]} {user[1]} {user[2]}"
             bot.send_message(chat_id = cb.message.chat.id, message_thread_id = chats["Users"],  text = f"ID: {user[0]}\nName: {user[1]}\nPassword: {user[2]}\n➡️is_admin⚠️: {user[4]}", reply_markup  = inline_keyboard_2)
             
     elif "delete_user" in cb.data:
@@ -133,7 +136,15 @@ def callback(cb: telebot.types.CallbackQuery):
         inline_keyboard_2.keyboard[0][0].callback_data = f"delete_user {id}"
         inline_keyboard_2.keyboard[0][1].callback_data = f"remove_admin {id} {name} {password}"
         bot.edit_message_text(chat_id = cb.message.chat.id, message_id = cb.message.message_id, text = f"ID: {id}\nName: {name}\nPassword: {password}\n➡️is_admin⚠️: 0", reply_markup = inline_keyboard_2)
-    
+    elif "add_admin" in cb.data:
+        id = cb.data.split(" ")[1]
+        name = cb.data.split(" ")[2]
+        password = cb.data.split(" ")[3]
+        data_update(f"UPDATE user SET is_admin = 1 WHERE id = {id}")
+        inline_keyboard_2.keyboard[0][0].callback_data = f"delete_user {id}"
+        inline_keyboard_2.keyboard[0][1].callback_data = f"remove_admin {id} {name} {password}"
+        bot.edit_message_text(chat_id = cb.message.chat.id, message_id = cb.message.message_id, text = f"ID: {id}\nName: {name}\nPassword: {password}\n➡️is_admin⚠️: 1", reply_markup = inline_keyboard_2)
+
     elif "get_products" in cb.data:
         bot.send_message(chat_id = cb.message.chat.id, message_thread_id = chats["Products"], text = "List of products: ")
         list_product = data_update("SELECT * FROM product")
