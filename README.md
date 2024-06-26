@@ -62,3 +62,19 @@
 
 ## Структура проекту:
 ![image](./images/screenshot.jpg)
+
+### Приклад створення додатку:
+```python
+import flask
+# Створення Flask додатку
+home_app = flask.Blueprint(
+    # Даэмо назву додатку
+    name = "home",
+    # Вказуэмо місцезнаходження додатку
+    import_name = "home_page",
+    # Вказуэмо шлях до папки Static
+    static_folder = "static/home_page",
+    # Вказуэмо шлях до папки з шаблонами
+    template_folder = "templates"
+)
+```
