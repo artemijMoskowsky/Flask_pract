@@ -43,7 +43,19 @@
 - Werkzeug==3.0.2
 
 ### Як завантажити та запустити проект:
-1. Клонируйте репозиторий: `git clone https://github.com/yourrepo`
-2. Перейдите в директорию проекта: `cd yourrepo`
-3. Установите зависимости: `pip install -r requirements.txt`
-4. Запустите приложение: `flask run`
+#### Завантажити проект:
+1. Клонуйте репозиторій: `git clone https://github.com/artemijMoskowsky/Flask_pract.git
+2. Перейдіть до дерикторії проекту: `cd Flask_pract`
+3. Завантажте залежності: `pip install -r requirements.txt`
+
+#### Запуск сайту:
+1. Перейдіть до дерикторії головного додатку: `cd shop_project`
+2. Ініціалізуйте базу даних: `flask --app settings db init`
+3. Проведіть міграції бази даних: `flask --app settings db migrate`
+4. Зробіть оновлення версії бази даних: `flask --app settings db upgrade`
+5. Поверніться до попередньої дерикторії: `cd /..`
+6. Запустити файл manage.py: `python manage.py`
+
+#### Запуск бота:
+1. Перейти до дерикторії бота: `cd Flask_pract/bot_app`
+2. Запустити файл settings.py: `python settings.py`
