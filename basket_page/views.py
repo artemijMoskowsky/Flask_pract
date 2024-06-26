@@ -58,43 +58,50 @@ def show_basket():
                 products_list.append(product)
 
         if flask.request.method == "POST":
-            email = flask.request.form["email"]
-            message_text = f'Імя: {flask.request.form["name"]}\nПрізвище: {flask.request.form["surname"]}\nНомер телефону: {flask.request.form["phone"]}\nEmail: {email}\nМісто: {flask.request.form["city"]}\nПобажання: {flask.request.form["wishes"]}\n\nСписок замовлення:\n'
-            for product in products_list:
-                message_text +=f" *{product.name}\n"
+            if flask.request.form.get("w_button") == None:
+                
+                email = flask.request.form["email"]
+                message_text = f'Імя: {flask.request.form["name"]}\nПрізвище: {flask.request.form["surname"]}\nНомер телефону: {flask.request.form["phone"]}\nEmail: {email}\nМісто: {flask.request.form["city"]}\nПобажання: {flask.request.form["wishes"]}\n\nСписок замовлення:\n'
+                for product in products_list:
+                    message_text +=f" *{product.name}\n"
 
-            # inline_keyboard_cart.keyboard[0][0].callback_data = f"apply_order {flask_login.current_user.id} {email}"
-            # inline_keyboard_cart.keyboard[0][1].callback_data = f"reject_order {flask_login.current_user.id}"
-            # bot.send_message(chat_id = "-1002157660034", message_thread_id = chats["Cart"],  text = message_text, reply_markup = inline_keyboard_cart)
-            keyboard = {
-                "inline_keyboard": [[
-                    {
-                    "text": 'Прийняти замовлення',
-                    "callback_data": f'apply_order {flask_login.current_user.id} {email}'
-                    },
-                    
-                    {
-                    "text": "Відхилити замовлення",
-                    "callback_data": f'reject_order {flask_login.current_user.id}'
-                    }
-                ]]
-            }
-            token = "7288836611:AAEqW2rsGrWsat1iiiXHpEXFGVyXQOfoz5w"
-            method = "SendMessage"
-            url = f"https://api.telegram.org/bot{token}/{method}"
-            data = {"chat_id": "-1002157660034","message_thread_id": "4", "text": message_text, "reply_markup": json.dumps(keyboard)}
-            requests.post(url = url, data = data)
-            
-            send_message = Message(
-                subject = "Замовлення",
-                recipients = [email],
-                body = f"Ваше замовлення у обробці\n\n\n{message_text}",
-                sender = ADMINISTRATION_ADRES
-            )
-            mail.send(send_message)
-            user = User.query.get(flask_login.current_user.id)
-            user.is_waiting = True
-            data_base.session.commit()
+                # inline_keyboard_cart.keyboard[0][0].callback_data = f"apply_order {flask_login.current_user.id} {email}"
+                # inline_keyboard_cart.keyboard[0][1].callback_data = f"reject_order {flask_login.current_user.id}"
+                # bot.send_message(chat_id = "-1002157660034", message_thread_id = chats["Cart"],  text = message_text, reply_markup = inline_keyboard_cart)
+                keyboard = {
+                    "inline_keyboard": [[
+                        {
+                        "text": 'Прийняти замовлення',
+                        "callback_data": f'apply_order {flask_login.current_user.id} {email}'
+                        },
+                        
+                        {
+                        "text": "Відхилити замовлення",
+                        "callback_data": f'reject_order {flask_login.current_user.id}'
+                        }
+                    ]]
+                }
+                token = "7288836611:AAEqW2rsGrWsat1iiiXHpEXFGVyXQOfoz5w"
+                method = "SendMessage"
+                url = f"https://api.telegram.org/bot{token}/{method}"
+                data = {"chat_id": "-1002157660034","message_thread_id": "4", "text": message_text, "reply_markup": json.dumps(keyboard)}
+                requests.post(url = url, data = data)
+                
+                send_message = Message(
+                    subject = "Замовлення",
+                    recipients = [email],
+                    body = f"Ваше замовлення у обробці\n\n\n{message_text}",
+                    sender = ADMINISTRATION_ADRES
+                )
+                mail.send(send_message)
+                user = User.query.get(flask_login.current_user.id)
+                user.is_waiting = True
+                data_base.session.commit()
+                
+            else:
+                user = User.query.get(flask_login.current_user.id)
+                user.is_waiting = False
+                data_base.session.commit()
 
     except Exception as _ex:
         print(_ex)

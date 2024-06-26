@@ -109,7 +109,9 @@
 
 {% endif %}
 <div style = "display: flex; align-items: center; justify-content: center;">
-    <button class = "waiting_button">ВІДМІНИТИ ЗАМОВЛЕННЯ</button>
+    <form method = "post">
+        <button name = "w_button" value = "True" type = "submit" class = "waiting_button">ВІДМІНИТИ ЗАМОВЛЕННЯ</button>
+    </form>
 </div>
 {% endif %}
 
