@@ -72,7 +72,7 @@ home_app = flask.Blueprint(
     name = "home",
     # Вказуэмо місцезнаходження додатку
     import_name = "home_page",
-    # Вказуэмо шлях до папки Static
+    # Вказуємо шлях до папки зі статичними файлами 
     static_folder = "static/home_page",
     # Вказуэмо шлях до папки з шаблонами
     template_folder = "templates"
