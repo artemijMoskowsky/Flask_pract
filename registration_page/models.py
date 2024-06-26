@@ -1,7 +1,7 @@
-# 
+# Імпортуємо базу даних
 from shop_project.settings import data_base
 
-# 
+# Імпортуємо щаблон класу користувачів
 from flask_login import UserMixin
 
 

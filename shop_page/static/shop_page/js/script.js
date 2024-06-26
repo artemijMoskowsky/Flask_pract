@@ -5,6 +5,7 @@ const list_description = document.querySelectorAll(".read-more")
 const productList = document.querySelectorAll("#p_object")
 const dataReader = document.querySelector(".dataReader")
 
+// Оновлюється лічильник поряд с корзиною
 function updateBasketCount() {
     let cookies = document.cookie.split("=")[1].split(" ");
     let count = 0

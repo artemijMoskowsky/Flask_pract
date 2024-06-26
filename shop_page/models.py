@@ -1,4 +1,4 @@
-# 
+# Імпортуємо базу даних
 from shop_project.settings import data_base
 
 # Модель продукту

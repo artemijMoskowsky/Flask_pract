@@ -19,7 +19,7 @@ if (placingButton != null){
     })
 }
 
-
+// Оновлюється лічильник поряд с корзиною
 function updateBasketCount() {
     let count = 0
 
@@ -46,15 +46,13 @@ for(let id = 0; id < plus_buttons.length; id++){
     let countr = countReader[id]
 
     button.addEventListener("click", function(){
-        // if (parseInt(counter.textContent) < parseInt(countr.id)){
-            counter.textContent = parseInt(counter.textContent) + 1
-            let cookie = document.cookie.split("=")[1]
-            document.cookie = `products = ${cookie} ${button.id}`
-            setPriceSum()
-            setDiscount()
-            setPrice()
-            updateBasketCount()
-        // }
+        counter.textContent = parseInt(counter.textContent) + 1
+        let cookie = document.cookie.split("=")[1]
+        document.cookie = `products = ${cookie} ${button.id}`
+        setPriceSum()
+        setDiscount()
+        setPrice()
+        updateBasketCount()
 
     })
 }
@@ -96,6 +94,7 @@ for(let id = 0; id < minus_buttons.length; id++ ){
     })
 }
 }
+// Функція для розрахунку суми товарів (без знижки) (грн)
 function setPriceSum() {
     let price_sum = 0
     let counts = 0    
@@ -114,6 +113,7 @@ function setPriceSum() {
 }
 setPriceSum()
 
+// Функція розрахунку єкономії за рахунок знижки (грн)
 function setDiscount(){
     let discount = 0
     for(let dis = 0; dis < price_list.length; dis++ ){
@@ -128,6 +128,7 @@ function setDiscount(){
 }
 setDiscount()
 
+// Функція розрахунку суми з врахуванням знижки (грн)
 function setPrice(){
     sum_tag_h.textContent = parseInt(price_sum_tag_h.textContent.split(" ")[0]) - parseInt(discount_tag_h.textContent.split(" ")[0]) + " грн"
 }
