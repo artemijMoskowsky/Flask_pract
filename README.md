@@ -59,3 +59,6 @@
 #### Запуск бота:
 1. Перейти до дерикторії бота: `cd Flask_pract/bot_app`
 2. Запустити файл settings.py: `python settings.py`
+
+## Структура проекту:
+![image](https://github.com/artemijMoskowsky/Flask_pract/assets/144718032/03f00dc8-2bf2-4409-b7af-a06680a4bfbc)
