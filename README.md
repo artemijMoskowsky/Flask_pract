@@ -61,4 +61,4 @@
 2. Запустити файл settings.py: `python settings.py`
 
 ## Структура проекту:
-![image](.images/screenshot.jpg)
+![image](./images/screenshot.jpg)
