@@ -41,3 +41,9 @@
 - typing_extensions==4.11.0
 - urllib3==2.2.1
 - Werkzeug==3.0.2
+
+### Як завантажити та запустити проект:
+1. Клонируйте репозиторий: `git clone https://github.com/yourrepo`
+2. Перейдите в директорию проекта: `cd yourrepo`
+3. Установите зависимости: `pip install -r requirements.txt`
+4. Запустите приложение: `flask run`
