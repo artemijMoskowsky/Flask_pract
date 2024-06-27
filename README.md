@@ -984,7 +984,7 @@ document.body.style.overflowX = "hidden";
 ## HTML шаблони нашого проекту:
 ### Базовий шаблон:
 #### Опис:
-Це основа усіх інших шаблонів, цей шаблон створений для того щоб на кожному подальшому шаблоні були кнопки навігації. Якщо користувач ще не авторизован то на панелі навігації будуть кнопки "" та "". Якщо ж користувач пройшов авторизацію то кнопки "" та "" зникають, таз'являються кнопки "home", "shop", "basket", та якщо у користувача є права адміну то з'являєт ься кнопка "admin".
+Це основа усіх інших шаблонів, цей шаблон створений для того щоб на кожному подальшому шаблоні були кнопки навігації. Якщо користувач ще не авторизован то на панелі навігації будуть кнопки "" та "". Якщо ж користувач пройшов авторизацію то кнопки "" та "" зникають, таз'являються кнопки "home", "shop", "basket", та якщо у користувача є права адміну то з'являється кнопка "admin".
 #### Код:
 ```html
 <!DOCTYPE html>
@@ -1060,3 +1060,498 @@ document.body.style.overflowX = "hidden";
 ```
 
 ### Home_page:
+#### Опис:
+Домашня сторінка немає ніякого власного функціоналу, все що є на цій сторінці це надпис "HOME PAGE"
+#### Код:
+```html
+{% extends "base.html" %}
+
+{% block title %} Home {% endblock %}
+
+{% block style %}
+    <link rel="stylesheet"  href="{{ url_for('home.static', filename = 'css/style.css') }}"> 
+{% endblock  %}
+
+{% block script %}
+    <script defer src= "{{ url_for('shop.static', filename = 'js/script.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class = "dataReader" style = "display: none;" data-products_ids = '{{ list_products_ids }}'>
+    </div>
+    <h1 id="home_page" align = "center">HOME PAGE</h1>
+    <script src="{{ url_for('home.static', filename = 'js/home.js') }}"></script>
+{% endblock %}
+```
+
+### Shop_page:
+#### Опис:
+Сторінка магазину це сторінка на якій відображається товар, та у користувача є можливість купити цей товар. Коли користувач заходить на цю сторінку, весь товар з бази даних відображається, та при натисканні на кнопку "Купити" id цього товару потрапляє до cookies.
+#### Код:
+```html
+{% extends "base.html" %}
+
+{% block title %} SHOP {% endblock  %}
+
+
+
+{% block style %}
+    <link rel="stylesheet"  href="{{ url_for('shop.static', filename = 'css/style.css') }}"> 
+{% endblock  %}
+
+{% block script %}
+    <script defer src= "{{ url_for('shop.static', filename = 'js/script.js') }}"></script>
+{% endblock %}
+
+
+{% block content %}
+
+    {% for product in products %}
+        <div class = "dataReader" style = "display: none;" data-products_ids = '{{ list_products_ids }}'>
+            
+        </div>
+    
+        <div id = "p_object">
+            <img style="align-self: flex-start" id = "p_image" src="{{ url_for('shop.static',filename='images/'+product.id|string+'.png')}}" alt="None">
+            <div id = "p_content">
+                
+                <h1 style="margin-top: 0px; margin-bottom: 4px; font-family: sans-serif;"> {{product.name}} </h1>
+                <h2 style="font-family: sans-serif; margin-top: 4px; margin-bottom: 4px; text-decoration: line-through;"> {{product.price}} грн</h2>
+                <h2 style="font-family: sans-serif; margin-top: 4px; margin-bottom: 4px;"> Знижка {{product.discount}}%</h2>
+                <h1 style="font-family: sans-serif; margin-top: 4px;"> {{((product.price / 100) * (100 - product.discount)) | int}} грн</h1>
+
+                <button type="button" class = "product_button" id = "{{product.id}}">Купити</button>
+
+
+                <h3 style="font-family: sans-serif; margin-bottom: 0px;">Опис: </h3>                                 
+
+                <div id = "past_content">
+                    <div id = "p_capacity">
+                        
+                        <p class = "read-more" id = "{{product.id}}"> {{product.description}} </p>
+                        {% if product.description|length > 70 %}
+                            <div style="display:flex;align-items: center;justify-content: center;">
+                                <button type="button" class = "readmore" id = "{{product.id}}">Читати далі</button>
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% if product.count|int > 0 %}
+                    
+                        <p style="font-family: sans-serif;"><span class="mark">✔</span> Товар в наявності</p>
+                    {% else %}
+                        <p style="font-family: sans-serif;"><span class="mark-off"></span>Товару немає в наявності</p>
+                    {% endif %}
+                    
+                </div>
+                
+          
+            </div>
+        </div>
+
+    {% endfor %}
+
+
+{% endblock  %}
+
+```
+
+### Basket_page:
+#### Опис:
+На сторінці корзини відображається весь товар що ви купили на сторінці магазину, тут ви можете додати більше товару, або навпаки зменьшити його кількість. Також на цій сторінці ви можете оформити замовлення, при натисканні на кнопку відкривається форма, при заповнені якої на сервер приходять усі необхідні дані щоб можна було відправити інформацію про замовлення до телеграм серверу адмінів, та відправити вам на пошту підтвердження що ви замовили цей товар.
+#### Код:
+```html
+{% extends "base.html" %}
+
+{% block title %} Cart {% endblock %}
+
+{% block script %}
+    <script defer src= "{{ url_for('shop.static', filename = 'js/script.js') }}"></script>
+    <script defer src= "{{ url_for('basket.static', filename = 'js/basket.js') }}"></script>
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet"  href="{{ url_for('basket.static', filename = 'css/style.css') }}"> 
+{% endblock %}
+
+
+
+{% block content %}
+
+{% if is_waiting == true %}
+<h2 align = "center" class = "waiting_title">Ваші дані у обробці<br>
+консультант зв’яжеться з вами для підтвердження замовлення</h2>
+{% endif %}
+
+<form class = "placing2" method = "post">
+    <h2 class = "placing2-title">ОФОРМЛЕННЯ ЗАМОВЛЕННЯ</h2>
+
+    <p class = "placing2-text">Ім'я</p>
+    <input type="text" name="name" value="" class = "placing2-input">
+    
+    <p class = "placing2-text">Прізвище</p>
+    <input type="text" name="surname" value="" class = "placing2-input">
+    
+    <p class = "placing2-text">Номер телефону</p>
+    <input type="text" name="phone" value="" class = "placing2-input">
+    
+    <p class = "placing2-text">Пошта</p>
+    <input type="text" name="email" value="" class = "placing2-input">
+    
+    <p class = "placing2-text">Місто</p>
+    <input type="text" name="city" value="" class = "placing2-input">
+    
+    <p class = "placing2-text">Побажання</p>
+    <input type="text" name="wishes" value="" class = "placing2-input">
+
+    <button type="submit" class = "send_button">SEND</button>
+</form>
+
+<div class="holder">
+    <div>
+        {% for product in products %}
+
+            <div id = "p_object">
+                <div class = "count_reader" id = "{{ product.count }}" style = "display: none;">
+                    
+                </div>
+                <img style="align-self: flex-start" id = "p_image" src="{{ url_for('shop.static',filename='images/'+product.id|string+'.png')}}" alt="None">
+                <div class = "p_content" id = "{{product.discount}}">
+
+                    <h1 style="margin-top: 0px; font-family: sans-serif; width: 400px;text-overflow: ellipsis; overflow: hidden; width:310px; text-align: center;"> {{product.name}} </h1>
+                    <div id = "p_buttons">
+                        {% if is_waiting == false %}
+                        <button type="button" class = "cart_buttons_m" id = "{{product.id}}">-</button>
+                        {% endif %}
+                        <h1 class = "counter" id = "{{product.id}}">{{product.count}}</h1>
+                        {% if is_waiting == false %}
+                        <button type="button" class = "cart_buttons_p" id = "{{product.id}}">+</button>
+                        {% endif %}
+                    </div>
+                    <h1 style="font-family: sans-serif; width: 200px;" class = "price" id = "{{product.id}}">{{product.price}} грн</h1>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% if is_waiting == false %}
+    <div class = "placing">
+        <button type="button" id = "placing_button">ПЕРЕЙТИ ДО ОФОРМЛЕННЯ</button>
+        <div class = "info_placer">
+            <h4 id = "p_count"><span id = "p_countT">1</span> товари на суму</h4>
+            <h4 id = "p_priceT">1</h4>
+        </div>
+        <div class = "info_placer">
+            <h4 id = "p_discount">Знижка</h4>
+            <h4 id = "p_discountT">1</h4>
+        </div>
+        <div class = "info_placer">
+            <h3 id = "p_sum">Загальна сума</h3>
+            <h3 id = "p_sumT">1</h3>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% if is_waiting == true %}
+<div style = "display: flex; justify-content: center; align-items: center;">
+    <h4 style = "display: none;" id = "p_priceT">1</h4>
+    <h4 style = "display: none;" id = "p_discountT">1</h4>
+    <h1 style = "display: flex;" class = "waiting_sum" id = "p_sum">Загальна вартість замовлення: <h1 id = "p_sumT">1</h1></h1>
+</div>
+
+{% if is_waiting == true %}
+
+<style>
+.holder{
+    align-items: center;
+}
+#p_object{
+    margin-left: 150px;
+}
+</style>
+
+{% endif %}
+<div style = "display: flex; align-items: center; justify-content: center;">
+    <form method = "post">
+        <button name = "w_button" value = "True" type = "submit" class = "waiting_button">ВІДМІНИТИ ЗАМОВЛЕННЯ</button>
+    </form>
+</div>
+{% endif %}
+
+{% endblock  %}
+```
+
+### Admin_page:
+#### Опис:
+На сторінці адміну у адмінів є можливість додати/видалити/відредагувати товар. Для цього у нас є 3 форми:
+1. Форма вікна додавання товару. Адмін має заповнити усі необхідні дані про товар, форма надішле ці дані до серверу, та сервер додає новий товар за цими даними
+2. Форма редагування. При натисканні на кнопки редагування відкривається модальне вікно, яке підстроюється під ту кнопку яку ви натиснули. Після відправки форми, значення яке ві змінили змінеться у базі даних.
+3. Форма видалення. Ця форма начеплена на весь товар, має у собі id товару, тому коли кнопка видалення натискається товар видаляється з бази даних по id
+#### Код:
+```html
+{% extends "base.html" %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('admin.static',filename='css/style.css')}}">
+{% endblock %}
+
+{% block script %}
+<script defer src = "{{url_for('admin.static', filename = 'js/script.js')}}"></script>
+{% endblock %}
+{% block content %}
+    <div style = "display: none; background-color: rgba(255,255,255,0.5); z-index: 10; position:fixed; width: 100vw; height: 100vh; top: 0px;">
+    <form method ="post" enctype="multipart/form-data" class="add-product">
+        <h1 align="center" style = "margin-bottom: 2px;">Новий продукт</h1>
+        <p class = "add-text">Зображення</p>
+        <input class = "add-image" type="file" name="image" accept = "image/*">
+        <p class = "add-text">Назва</p>
+        <input class = "add-input" type="text" name="name" value="">
+        <p class = "add-text">Опис</p>
+        <textarea class = "add-input" name = "description" ></textarea>
+        <p class = "add-text">Ціна</p>
+        <input class = "add-input" type="number" name="price" value="">
+        <p class = "add-text">Знижка</p>
+        <input class = "add-input" type="number" name="discount" value="">
+        <p class = "add-text">Кількість</p>
+        <input class = "add-input" type="number" name="count" value="">
+        
+        
+        <button class = "w_button" type="submit" name = "id" value = "add" >Додати</button>
+    </form>
+    </div>
+    <button type="button" class = "add-button">
+        <h2 style = "margin: 13px;">Додати продукт</h2>
+        <p style = "background-color: #D1D8DB; border: 2px solid black; border-radius: 7px; font-size: 40px; padding-left: 10px; padding-right: 10px; margin: 0px;">+</p>
+    </button>
+    {% for product in products %}
+            <form method="post" enctype="multipart/form-data" class = "p_object" id = "{{product.id}}">
+                
+                <div style="align-self: flex-start; align-items: center" class = "edit">
+                    <img class = "p_image" id = "p_image" src="{{ url_for('shop.static',filename='images/'+product.id|string+'.png')}}" alt="None">
+                    <button type="button" class = "change" id = "{{product.id}}" value = "image">
+                        <img style = "width: 25px; height: 25px; position: relative; left: 0px; top: 0px;" src = "{{ url_for('admin.static',filename='image/edit.jpg') }}" alt="None">
+                    </button>
+
+                </div>
+                <div id = "p_content">
+                    
+                    <div class = "edit">
+                        <h1 class = "p_name" id = "p_name" style="margin-top: 0px; margin-bottom: 4px; font-family: sans-serif;"> {{product.name}} </h1>
+                        <button type="button" class = "change" id = "{{product.id}}" value = "name">
+                            <img style = "width: 25px; height: 25px; position: relative; left: 0px; top: 0px;" src = "{{ url_for('admin.static',filename='image/edit.jpg') }}" alt="None">
+                        </button>
+                    </div>
+
+                    <div class = "edit">
+                        <h2 class = "p_price" id = "p_price" style="font-family: sans-serif; margin-top: 4px; margin-bottom: 4px; text-decoration: line-through;">{{product.price}} грн</h2>
+                        <button type="button" class = "change" id = "{{product.id}}" value = "price">
+                            <img style = "width: 25px; height: 25px; position: relative; left: 0px; top: 0px;" src = "{{ url_for('admin.static',filename='image/edit.jpg') }}" alt="None">
+                        </button>
+                    </div>
+
+
+
+                    <div class = "edit">
+                        <h2 class = "p_discount" id = "p_discount" style="font-family: sans-serif; margin-top: 4px; margin-bottom: 4px;">Знижка {{product.discount}}%</h2>
+                        <button type="button" class = "change" id = "{{product.id}}" value = "discount">
+                            <img style = "width: 25px; height: 25px; position: relative; left: 0px; top: 0px;" src = "{{ url_for('admin.static',filename='image/edit.jpg') }}" alt="None">
+                        </button>
+                    </div>
+
+                    <h1 style="font-family: sans-serif; margin-top: 4px;"> {{((product.price|int / 100) * (100 - product.discount|int)) | int}} грн</h1>
+
+                    <button type="button" class = "product_button" id = "{{product.id}}">Купити</button>
+
+
+                    <h3 style="font-family: sans-serif; margin-bottom: 0px;">Опис: </h3>                             
+
+
+                    <div id = "past_content">
+                        <div id = "p_capacity">
+                        
+                            <div class = "edit">
+                                <p class = "read-more p_description" id = "{{product.id}}"> {{product.description}} </p>
+                                <button type="button" class = "change" id = "{{product.id}}" value = "description">
+                                    <img style = "width: 25px; height: 25px; position: relative; left: 0px; top: 0px;" src = "{{ url_for('admin.static',filename='image/edit.jpg') }}" alt="None">
+                                </button>
+                            </div>
+                            
+                            {% if product.description|length > 70 %}
+                                <div style="display:flex;align-items: center;justify-content: center;">
+                                    <button type="button" class = "readmore" id = "{{product.id}}">Читати далі</button>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <button style = "display: flex;border: 0px; background-color: white;" name="id" value="del-{{product.id}}" type="submit" ><img style = " margin-top: 7px; width: 25px; height: 28px;" src = "{{ url_for('admin.static', filename = 'image/pomoyka.jpg') }}" alt = "None"><h3>Видалити товар</h3></button>   
+                    
+                    
+                </div>
+            </form>
+
+    {% endfor %}
+    <form method = "post" class = "pop-up-window" enctype = "multipart/form-data" style = "display: none; z-index: 1;" >
+        <div class = "window">
+            
+            <div class = "window_image_div" style = "display: none; z-index: 2;">
+                <h2 class = "w_text1">Змінити зображення</h2>
+                <img class = "w_image" src = "" alt = "" style = "width: 200px; height: 250px; object-fit: contain; display: none;">
+                <input class = "w_image_input" id = "file-upload" type="file" name="image" accept = "image/*">
+                
+            </div>
+        
+            <div class = "window_text_div" style = "display: none; z-index: 2;">
+                <h2 class = "w_text">Змінити текст</h2>
+                <input class = "w_input" type="text" name="" value="" style = "width: 350px; height: 35px; font-size: 25px">
+            </div>
+            <button class = "w_button" name="id" value="" type="submit">SEND</button>
+        </div>
+   
+    </form>
+    
+{% endblock %}
+```
+
+### Registration_page:
+#### Опис:
+Сторінка реєстрації. На сторінці є лише 1 форма для введення даних акаунту, після надсилання форми на сервер, створюється новий акаунт у базі даних.
+#### Код:
+```html
+{% extends "base.html" %}
+
+
+
+{% block title %} Registration {% endblock  %} 
+
+{% block style %}
+    <link rel="stylesheet"  href="{{ url_for('reg_app.static', filename = 'css/style.css') }}"> 
+{% endblock  %}
+
+
+
+
+{% block content %}
+
+    <div id="body-div">
+        <div id="home_placer">
+            <p id = "reg_title">REGISTRATION</p>
+        </div>
+        <div id="reg_placer">
+            
+
+            <form method = "post" id = "reg_content">
+                <p class = "input_holder">Login</p>
+                <input class = "reg_input" type="text" name="name" placeholder="">
+                <p class = "input_holder">Email</p>
+                <input class = "reg_input" type="text" name="email" placeholder="">
+                <p class = "input_holder">Password</p>
+                <input class = "reg_input" type="text" name="password" placeholder="">
+                <p class = "input_holder">Password confirmation</p>
+                <input class = "reg_input" type="text" name="password_confirm" placeholder="">
+                <button class="reg_submit" type="submit">SEND</button>
+            </form>
+        </div>
+    </div>
+    {% if confirmed %}
+
+       <style>
+        
+            #body-div{
+                opacity: 0.5;
+            }
+        
+        </style>
+        
+        <div id="div0">
+            <h1 id="hh1" align = "center">CONFIRMED</h1>
+
+            <div style="display: flex;" id="div1">
+                <p id = "to_login" style="margin: 0;">→</p>
+                <a id = "to_login" href="/login">AUTHORISATION</a>           
+            </div>
+        </div>
+
+     
+    {% endif %}
+
+
+{% endblock  %}
+```
+
+### Login_page:
+#### Опис:
+Сторінка авторизації. Також має лише 1 форму, коли приходить запит до серверу йде перевірка що цей користувач є у базі даних, якщо він є, користувач авторизується та отримає сесіоний ключ до cookies.
+#### Код:
+```html
+{% extends "base.html" %}
+
+{% block title %}  Login  {% endblock  %}
+
+{% block style %}
+    <link rel="stylesheet"  href="{{ url_for('login.static', filename = 'css/style.css') }}"> 
+{% endblock  %}
+
+
+{% block content %}
+
+    <div id="body-div">
+
+        <div id="home_placer">
+
+            <p id="log_title">AUTHORISATION</p>
+
+        </div>
+
+        <div id="log_placer">
+
+            
+
+            <form method = "post" id = "log_content">
+
+                <p class = "input_holder">Login or Email</p>
+
+                <input class = "log_input" type="text" name="name" placeholder="">
+
+                <p class = "input_holder">Password</p>
+
+                <input class = "log_input" type="text" name="password" placeholder="">
+                
+                <button class="log_submit" type="submit">SEND</button>
+            </form>
+        
+        </div>
+    
+    </div>
+
+    {% if not confirmed %}
+
+       <style>
+        
+            #body-div{
+                opacity: 0.5;
+            }
+        
+        </style>
+        
+        <div id="div0">
+            <h1 id="hh1" align = "center">YOU ARE NOT REGISTERED</h1>
+
+            <div style="display: flex;" id="div1">
+                <p id = "to_login" style="margin: 0;">→</p>
+                <a id = "to_login" href="/registration">REGISTRATION</a>           
+            </div>
+        </div>
+
+     
+    {% endif %}
+
+{% endblock  %}
+```
+
+## Що таке база даних та чому саме SQLite3:
+### Що таке база даних:
+База даних — це організована сукупність структурованої інформації або даних, яка зберігається електронним способом і керується системою управління базами даних (СУБД). База даних дозволяє зручно зберігати, шукати, змінювати та керувати великими обсягами інформації, забезпечуючи її цілісність, надійність та швидкий доступ.
+<br>В даному проекті база даних застосовувалася для зберігання користувачів та продуктів. У чому зручність? Користувачі та продукти знаходяться у одній базі даних у різних таблицях, тобто інформаціє не змішується до купи.
+### Чому саме SQLite3:
+#### Ми обрали базу даних SQLite3 по наступним причинам:
+1. Бібліотека SQLite3 встроєна у Python
+2. Ми вже знайомі з цією базою даних
+3. Для роботи SQLite3 потрібен 1 файл (Не враховуючі міграції які потрібні при роботі з Flask)
