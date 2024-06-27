@@ -49,15 +49,20 @@
 3. Завантажте залежності: `pip install -r requirements.txt`
 
 #### Запуск сайту:
+
+### Налагодження проекту
 1. Перейдіть до дерикторії головного додатку: `cd shop_project`
 2. Ініціалізуйте базу даних: `flask --app settings db init`
 3. Проведіть міграції бази даних: `flask --app settings db migrate`
 4. Зробіть оновлення версії бази даних: `flask --app settings db upgrade`
 5. Поверніться до попередньої дерикторії: `cd /..`
-6. Запустити файл manage.py: `python manage.py`
+
+### Запуск сайту
+1. Перевірте що ви знаходитесь у дерикторії проекту Flask_pract
+2. Запустити файл manage.py: `python manage.py`
 
 #### Запуск бота:
-1. Перейти до дерикторії бота: `cd Flask_pract/bot_app`
+1. Перейти до дерикторії бота: `cd bot_app`
 2. Запустити файл settings.py: `python settings.py`
 
 ## Структура проекту:
@@ -539,6 +544,9 @@ def show_admin():
         # Робимо перехід на іншу сторінку (home_page)
         return flask.redirect("/")
 ```
+
+
+
 ## JS нашого проекту:
 ### basket_page:
 ```js
