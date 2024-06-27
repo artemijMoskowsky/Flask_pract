@@ -545,7 +545,56 @@ def show_admin():
         return flask.redirect("/")
 ```
 
+## Моделі проекту:
+### Модель користувача:
+```python
+# Імпортуємо базу даних
+from shop_project.settings import data_base
 
+# Імпортуємо щаблон класу користувачів
+from flask_login import UserMixin
+
+
+# Модель користувача
+class User(data_base.Model, UserMixin):
+    # Унікальний id користувача
+    id = data_base.Column(data_base.Integer, primary_key = True)
+    # Ім'я користувача
+    name = data_base.Column(data_base.String(255), nullable = False)
+    # Пароль користувача
+    password = data_base.Column(data_base.String(60), nullable = False)
+    # Пошта користувача
+    email = data_base.Column(data_base.String(60), nullable = False)
+    # Наявність прав адміну
+    is_admin = data_base.Column(data_base.Boolean, nullable = False)
+    # Наявність очикування обробки замовлення
+    is_waiting = data_base.Column(data_base.Boolean, nullable = False)
+    # Функція що дає коротку інформацію про об'єкт
+    def __repr__(self):
+        # Повертаємо дані (id та ім'я) з функції
+        return f"{self.id}, {self.name}"
+```
+
+### Модель продукту:
+```python
+# Імпортуємо базу даних
+from shop_project.settings import data_base
+
+# Модель продукту
+class Product(data_base.Model):
+    # Унікальний id продукту
+    id = data_base.Column(data_base.Integer, primary_key = True, autoincrement=False)
+    # Ім'я продукту
+    name = data_base.Column(data_base.String(50), nullable = False)
+    # Ціна продукту
+    price = data_base.Column(data_base.Integer, nullable = False)
+    # Опис продукту
+    description = data_base.Column(data_base.Text, nullable = False)
+    # Кількість товару
+    count = data_base.Column(data_base.Integer, nullable = False)
+    # Знижка товару
+    discount = data_base.Column(data_base.Integer, nullable = False)
+```
 
 ## JS нашого проекту:
 ### basket_page:
