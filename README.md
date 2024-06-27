@@ -980,3 +980,83 @@ for (let i = 0; i < list_rbuttons.length; i++) {
 }
 document.body.style.overflowX = "hidden";
 ```
+
+## HTML шаблони нашого проекту:
+### Базовий шаблон:
+#### Опис:
+Це основа усіх інших шаблонів, цей шаблон створений для того щоб на кожному подальшому шаблоні були кнопки навігації. Якщо користувач ще не авторизован то на панелі навігації будуть кнопки "" та "". Якщо ж користувач пройшов авторизацію то кнопки "" та "" зникають, таз'являються кнопки "home", "shop", "basket", та якщо у користувача є права адміну то з'являєт ься кнопка "admin".
+#### Код:
+```html
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <title>{% block title %}  {% endblock  %}</title>
+
+        <meta charset="UTF-8">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="stylesheet"  href="{{ url_for('static', filename = 'css/style.css') }}">
+        {% block style %}
+        
+        {% endblock %}
+
+        {% block script %}
+
+        {% endblock %}
+        
+        
+    </head>
+
+    <body>
+
+        <div id = "header">
+            
+            
+            <div id = "buttons">
+                {% if link != "None" %}
+                    <style>
+                        #{{link}}{
+                            font-weight: bold;
+                            text-decoration: underline;
+                        }
+                    </style>
+                    {% if user_name != "" %}
+                        <button type="submit" class = "nav-button"><a id = "home" class = "button-a" href = "/">HOME</a></button>
+                        <button type="submit" class = "nav-button"><a id = "shop" class = "button-a" href = "/shop">SHOP</a></button>
+                        <div class = "basket_"><button type="submit" class = "nav-button"><a id = "basket" class = "button-a" href = "/basket">CART</a></button><p id="basket-count"></p></div>
+                        <button type="submit" class = "nav-button"><a id = "contacts" class = "button-a" href = "/contacts">CONTACTS</a></button>
+                        {% if is_admin %}
+                            <button type="submit" class = "nav-button"><a id = "admin" class = "button-a" href = "/admin">ADMIN</a></button>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% if user_name == "" %}
+                <div id = "links" style="margin-top: 28px;">
+                    <a class = "autoreg_link" href = "/registration" >REGISTRATION</a>
+                    <a class = "autoreg_link" href = "/login" >AUTHORISATION</a>
+                </div>
+            {% else %}
+                <div id = "links" style="margin-top: 18px;">
+                    <h1 style="margin-top:0.5vh; text-transform: uppercase; font-family: sans-serif;">{{ user_name }}</h1>
+                </div>
+            {% endif %}
+
+            
+        </div>
+
+        {% block content %}
+        
+
+
+        {% endblock  %}
+
+    </body>
+
+</html>
+```
+
+### Home_page:
