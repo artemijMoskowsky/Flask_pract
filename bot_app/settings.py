@@ -1,7 +1,7 @@
 import telebot
 import sqlite3
 import os
-from shop_project.mail_config import ADMINISTRATION_ADRES, ADMINISTRATION_PASSWORD, USER_ADRESS
+from shop_project.mail_config import ADMINISTRATION_ADRES, ADMINISTRATION_PASSWORD
 import smtplib
 from email.mime.text import MIMEText
 
@@ -160,26 +160,44 @@ def callback(cb: telebot.types.CallbackQuery):
             
     elif "reject_order" in cb.data:
         id = cb.data.split(" ")[1]
+        email = cb.data.split(" ")[2]
+        user_wait = data_update(f"SELECT * FROM user WHERE id = {id}")[0][5]
         data_update(f"UPDATE user SET is_waiting = 0 WHERE id = {id}")
         bot.delete_message(chat_id = cb.message.chat.id, message_id = cb.message.message_id)
+        if user_wait:
+            server = smtplib.SMTP(
+                    host = "smtp.gmail.com",
+                    port = 587,
+                )
+            server.starttls()
+            try:
+                server.login(ADMINISTRATION_ADRES, ADMINISTRATION_PASSWORD)
+                print(email)
+                msg = MIMEText("Заявка була відхилина")
+                msg["Subject"] = "Flask_Diplom"
+                server.sendmail(from_addr = ADMINISTRATION_ADRES, to_addrs = email, msg = msg.as_string().encode("utf-8"))
+            except Exception as _ex:
+                print(_ex)
 
     elif "apply_order" in cb.data:
         id = cb.data.split(" ")[1]
         email = cb.data.split(" ")[2]
+        user_wait = data_update(f"SELECT * FROM user WHERE id = {id}")[0][5]
         data_update(f"UPDATE user SET is_waiting = 0 WHERE id = {id}")
         bot.delete_message(chat_id = cb.message.chat.id, message_id = cb.message.message_id)
-        server = smtplib.SMTP(
-                host = "smtp.gmail.com",
-                port = 587,
-            )
-        server.starttls()
-        try:
-            server.login(ADMINISTRATION_ADRES, ADMINISTRATION_PASSWORD)
-            print(email)
-            msg = MIMEText("Заявка була прийнята")
-            msg["Subject"] = "Flask_Diplom"
-            server.sendmail(from_addr = ADMINISTRATION_ADRES, to_addrs = email, msg = msg.as_string().encode("utf-8"))
-        except Exception as _ex:
-            print(_ex)
+        if user_wait:
+            server = smtplib.SMTP(
+                    host = "smtp.gmail.com",
+                    port = 587,
+                )
+            server.starttls()
+            try:
+                server.login(ADMINISTRATION_ADRES, ADMINISTRATION_PASSWORD)
+                print(email)
+                msg = MIMEText("Заявка була прийнята")
+                msg["Subject"] = "Flask_Diplom"
+                server.sendmail(from_addr = ADMINISTRATION_ADRES, to_addrs = email, msg = msg.as_string().encode("utf-8"))
+            except Exception as _ex:
+                print(_ex)
 
 bot.infinity_polling()

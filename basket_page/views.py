@@ -82,7 +82,7 @@ def show_basket():
         # Перевіряєтся що на сервер прийшов запит
         if flask.request.method == "POST":
             # Перевіряєтся що була відправлена форма замовлення
-            if flask.request.form.get("w_button") == None and flask_login.current_user.is_waiting == True:
+            if flask.request.form.get("w_button") == None and flask_login.current_user.is_waiting == False:
                 # Записуємо email
                 email = flask.request.form["email"]
                 # Підготовлюємо текст для відправки до телеграму
@@ -103,7 +103,7 @@ def show_basket():
                         # Створюємо кнопку для відміни замовлення 
                         {
                         "text": "Відхилити замовлення",
-                        "callback_data": f'reject_order {flask_login.current_user.id}'
+                        "callback_data": f'reject_order {flask_login.current_user.id} {email}'
                         }
                     ]]
                 }
