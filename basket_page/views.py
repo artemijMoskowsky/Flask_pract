@@ -82,7 +82,7 @@ def show_basket():
         # Перевіряєтся що на сервер прийшов запит
         if flask.request.method == "POST":
             # Перевіряєтся що була відправлена форма замовлення
-            if flask.request.form.get("w_button") == None:
+            if flask.request.form.get("w_button") == None and flask_login.current_user.is_waiting == True:
                 # Записуємо email
                 email = flask.request.form["email"]
                 # Підготовлюємо текст для відправки до телеграму
@@ -144,6 +144,16 @@ def show_basket():
                 user.is_waiting = False
                 # Зберігаємо в базу даних
                 data_base.session.commit()
+                # Задаємо токен бота
+                token = "7288836611:AAEqW2rsGrWsat1iiiXHpEXFGVyXQOfoz5w"
+                # Метод який відносится до запиту
+                method = "SendMessage"
+                # Посилання для запиту до телеграму
+                url = f"https://api.telegram.org/bot{token}/{method}"
+                # Параметри до запиту
+                data = {"chat_id": "-1002157660034","message_thread_id": "4", "text": f"Заявка від користувача {flask_login.current_user.name} була відхилина"}
+                # Запит до телеграму
+                requests.post(url = url, data = data)
 
     except Exception as _ex:
         print(_ex) 

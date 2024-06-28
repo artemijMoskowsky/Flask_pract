@@ -9,7 +9,7 @@ ADMINISTRATION_PASSWORD = "uoqh refc eyti eisb"
 project_shop.config["MAIL_SERVER"] = "smtp.gmail.com"
 # Робимо конфігурацію вказуємо поштовий порт
 project_shop.config["MAIL_PORT"] = 587
-# Робимо конфігурацію для того щоб використовувати протокол шифрування та аунтифікаціїї "Transport Leer Securiti"
+# Робимо конфігурацію для того щоб використовувати протокол шифрування та аунтифікаціїї "Transfer Layer Security"
 project_shop.config["MAIL_USE_TLS"] = True
 # Робимо конфігурацію для того щоб не використовувати протокол
 project_shop.config["MAIL_USE_SSL"] = False

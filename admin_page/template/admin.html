@@ -41,13 +41,8 @@
                         <img style = "width: 25px; height: 25px; position: relative; left: 0px; top: 0px;" src = "{{ url_for('admin.static',filename='image/edit.jpg') }}" alt="None">
                     </button>
 
-                    <!-- <div>
-                        <img style = "width: 25px; height: 25px; position: relative; left: 0px; top: 0px;" src = "{{ url_for('admin.static',filename='image/edit.jpg') }}" alt="None">
-                        <input type = "file" name= "image" accept = "image/*" style = "opacity: 0; width: 25px; height: 25px; position: relative; left: -29px; top: -10px;">
-                    </div> -->
                 </div>
                 <div id = "p_content">
-                    <!--<input name="id" value="{{product.id}}" style="display: none;">         style = "opacity: 0; width: 25px; height: 25px; position: relative; left: -29px; top: -10px;"           !-->
                     
                     <div class = "edit">
                         <h1 class = "p_name" id = "p_name" style="margin-top: 0px; margin-bottom: 4px; font-family: sans-serif;"> {{product.name}} </h1>
@@ -96,16 +91,7 @@
                                 </div>
                             {% endif %}
                         </div>
-                        <button style = "display: flex;border: 0px; background-color: white;" name="id" value="del-{{product.id}}" type="submit" ><img style = " margin-top: 7px; width: 25px; height: 28px;" src = "{{ url_for('admin.static', filename = 'image/pomoyka.jpg') }}" alt = "None"><h3>Видалити товар</h3></button>
-                        <!--{% if product.count|int > 0 %}
-                     
-                            <p style="font-family: sans-serif;"><span class="mark">✔</span> Товар в наявності</p>
-                        {% else %}
-                            <p style="font-family: sans-serif;"><span class="mark-off"></span>Товару немає в наявності</p>
-                        {% endif %} !-->
-                    </div>
-    
-                    
+                        <button style = "display: flex;border: 0px; background-color: white;" name="id" value="del-{{product.id}}" type="submit" ><img style = " margin-top: 7px; width: 25px; height: 28px;" src = "{{ url_for('admin.static', filename = 'image/pomoyka.jpg') }}" alt = "None"><h3>Видалити товар</h3></button>   
                     
                     
                 </div>
@@ -125,13 +111,6 @@
             <div class = "window_text_div" style = "display: none; z-index: 2;">
                 <h2 class = "w_text">Змінити текст</h2>
                 <input class = "w_input" type="text" name="" value="" style = "width: 350px; height: 35px; font-size: 25px">
-            <!--<h2>Ціна</h2>
-            <input class = "w_price" type="number" name="price" value="" style = "width: 350px; height: 35px; font-size: 25px">
-            <h2>Знижка</h2>
-            <input class = "w_discount" type="number" name="discount" value="" style = "width: 350px; height: 35px; font-size: 25px">
-            <h2>Опис</h2>
-            <textarea style = "min-width: 350px; max-width: 450px; min-height: 150px; max-height: 200px; font-size: 15px" class = "w_description" name = "description" ></textarea>-->
-                
             </div>
             <button class = "w_button" name="id" value="" type="submit">SEND</button>
         </div>

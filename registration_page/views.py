@@ -33,7 +33,7 @@ def show_regestration():
                         is_user = True
                 # Робимо перевірку: Якщо данні не збігаються
                 if not is_user:
-                    # Задаємо початкове значення для перевірки * ДЛЯ ПРОПОЗИЦІЇ ПЕРЕЙТИ ДО АВТОРИЗАЦІЇ *
+                    # Задаємо значення для перевірки * ДЛЯ ПРОПОЗИЦІЇ ПЕРЕЙТИ ДО АВТОРИЗАЦІЇ *
                     confirmed = True
                     # Створюємо нового користувача та передаємо туди усі данні, які були збережені з форми 
                     new_user = User(name = name, email = email, password = password, is_admin = False, is_waiting = False)

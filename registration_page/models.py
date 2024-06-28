@@ -19,7 +19,8 @@ class User(data_base.Model, UserMixin):
     is_admin = data_base.Column(data_base.Boolean, nullable = False)
     # Наявність очикування обробки замовлення
     is_waiting = data_base.Column(data_base.Boolean, nullable = False)
-
+    # Функція що дає коротку інформацію про об'єкт
     def __repr__(self):
+        # Повертаємо дані (id та ім'я) з функції
         return f"{self.id}, {self.name}"
     
